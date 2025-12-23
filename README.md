@@ -1,5 +1,7 @@
 # Scriptō - Elegant Markdown Viewer
 
+[**🚀 Live Demo**](https://shijoshaji.github.io/Scripto/)
+
 **Scriptō** is a beautiful, lightweight, and offline-capable Markdown viewer designed for simplicity and elegance. It runs entirely in your browser with no backend required.
 
 > "Simple, elegant visualization — where every mark becomes meaning."
