@@ -534,3 +534,65 @@ body {
     color: var(--accent-hover);
     text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
 }
+
+/* Print Styles for PDF Export */
+@media print {
+    body {
+        background-color: var(--bg-color) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 0;
+        margin: 0;
+        overflow: visible;
+    }
+
+    .background-blobs,
+    #theme-toggle,
+    .glass-header,
+    .upload-zone,
+    .app-footer,
+    .header-actions {
+        display: none !important;
+    }
+
+    .app-container {
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        perspective: none;
+    }
+
+    .preview-zone {
+        background: transparent;
+        backdrop-filter: none;
+        border: none;
+        box-shadow: none;
+        padding: 2rem;
+        /* Keep some padding for readability */
+        min-height: auto;
+        animation: none;
+    }
+
+    .preview-header {
+        border-bottom: 2px solid var(--accent-color);
+        margin-bottom: 2rem;
+        justify-content: center;
+        /* Center filename if shown */
+    }
+
+    #filename-display {
+        font-size: 1.5rem;
+        border: 1px solid var(--glass-border);
+        background: transparent;
+        color: var(--text-primary);
+    }
+
+    /* Ensure code blocks print nicely */
+    .markdown-body pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border: 1px solid #ccc;
+    }
+}

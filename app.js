@@ -1,4 +1,5 @@
 // app.js
+console.log('App.js v2 loaded');
 
 const uploadArea = document.getElementById('upload-area');
 const fileInput = document.getElementById('file-input');
@@ -8,6 +9,11 @@ const markdownContent = document.getElementById('markdown-content');
 const filenameDisplay = document.getElementById('filename-display');
 const closeBtn = document.getElementById('close-btn');
 const themeToggle = document.getElementById('theme-toggle');
+
+// --- Element Safety Check ---
+if (!uploadArea || !fileInput || !previewArea || !markdownContent) {
+    console.error('Critical elements missing from DOM');
+}
 
 // --- Theme Logic ---
 
@@ -110,24 +116,7 @@ function updateSpeakIcon(active) {
     }
 }
 
-// Reset speech when app resets
-const originalReset = resetApp;
-resetApp = function () {
-    stopSpeaking();
-    originalReset(); // Call the original reset function (needs refactoring if original is const)
-};
-
-// Refactor resetApp to be let (workaround for this snippet approach)
-// Better approach: merge reset logic directly in the existing resetApp function if possible,
-// but since I'm appending, I'll just override the previous resetApp logic manually in the full file rewrite or careful edit. 
-// Actually, let's just create a `stopSpeaking()` call inside the usage of resetApp or simply update resetApp in this block? 
-// The safest is to just modify resetApp in place if I can find it. 
-// For now, I'll manually call stopSpeaking in the existing resetApp by replacing it in the next step or redefining it here if it's a function declaration.
-
-// Since resetApp is defined as `function resetApp()`, it is hoisted. 
-// I can't easily wrap it without recursion if I keep the name.
-// I will just add an event listener for close button to stop speaking as well.
-closeBtn.addEventListener('click', stopSpeaking);
+// Reset speech when app resets is now handled inside resetApp() directly.
 
 // Click to upload
 uploadArea.addEventListener('click', () => {
@@ -157,7 +146,73 @@ function preventDefaults(e) {
 uploadArea.addEventListener('drop', handleDrop, false);
 
 // Close / Reset
-closeBtn.addEventListener('click', resetApp);
+if (closeBtn) {
+    closeBtn.addEventListener('click', resetApp);
+}
+
+
+// --- New Features (Copy & PDF) ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copy-btn');
+    const pdfBtn = document.getElementById('pdf-btn');
+
+    if (copyBtn) {
+        console.log('Copy button found, adding listener');
+        copyBtn.addEventListener('click', handleCopy);
+    } else {
+        console.warn('Copy button NOT found in DOM');
+    }
+
+    if (pdfBtn) {
+        console.log('PDF button found, adding listener');
+        pdfBtn.addEventListener('click', () => {
+            console.log('PDF button clicked');
+            alert("💡 Tip: To preserve the visual theme in your PDF, make sure to check 'Background graphics' in the print settings window.");
+            window.print();
+        });
+    } else {
+        console.warn('PDF button NOT found in DOM');
+    }
+});
+
+
+function handleCopy(e) {
+    const text = markdownContent.innerText;
+    const html = markdownContent.innerHTML;
+
+    if (!text) return; // Nothing to copy
+
+    const btn = e.currentTarget;
+
+    // Create ClipboardItem with both HTML (for Word/Docs) and Plain Text
+    const blobHtml = new Blob([html], { type: 'text/html' });
+    const blobText = new Blob([text], { type: 'text/plain' });
+
+    const data = [new ClipboardItem({
+        'text/html': blobHtml,
+        'text/plain': blobText,
+    })];
+
+    navigator.clipboard.write(data).then(() => {
+        // Visual Feedback
+        const icon = btn.querySelector('ion-icon');
+
+        icon.setAttribute('name', 'checkmark-outline');
+        btn.style.color = 'var(--accent-color)';
+
+        setTimeout(() => {
+            icon.setAttribute('name', 'copy-outline');
+            btn.style.color = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy rich text: ', err);
+        // Fallback to plain text if HTML copy fails (some browsers might be strict)
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Rich text copy failed, copied plain text instead.');
+        });
+    });
+}
 
 
 // --- Handlers ---
@@ -294,6 +349,7 @@ function renderMarkdown(markdown, filename) {
 }
 
 function resetApp() {
+    stopSpeaking(); // Ensure speech stops on reset
     previewArea.classList.add('hidden');
     uploadArea.style.display = 'block'; // Restore
 

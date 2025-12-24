@@ -26,6 +26,10 @@
 - **Read Aloud**: Integrated Text-to-Speech engine reads your document out loud.
 - **Visual Feedback**: Pulse animation indicates when audio is playing.
 
+### 📤 **Export & Share**
+- **Rich Text Copy**: Copy your Markdown as formatted Rich Text (HTML) to paste directly into Word, Docs, or emails with styles preserved.
+- **Save as PDF**: Export your document as a clean, styled PDF. (Optimized for both Light and Dark modes).
+
 ## 🚀 How to Use
 
 ### Local Usage
