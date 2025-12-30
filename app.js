@@ -335,8 +335,8 @@ function readFile(file) {
 }
 
 function renderMarkdown(markdown, filename) {
-    // Sanitize and Parse
-    const html = DOMPurify.sanitize(marked.parse(markdown));
+    // Sanitize and Parse (Allow IDs for anchor links)
+    const html = DOMPurify.sanitize(marked.parse(markdown), { ADD_ATTR: ['id'] });
 
     // Update UI
     markdownContent.innerHTML = html;
@@ -346,6 +346,29 @@ function renderMarkdown(markdown, filename) {
     uploadArea.classList.add('hidden'); // Or rely on CSS logic if you want to keep dropzone small
     uploadArea.style.display = 'none'; // Simple toggle for now
     previewArea.classList.remove('hidden');
+
+    // Scroll to Top on new file load
+    window.scrollTo(0, 0);
+}
+
+// --- Scroll to Top Logic ---
+const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }
 
 function resetApp() {
