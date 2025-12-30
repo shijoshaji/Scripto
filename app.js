@@ -334,9 +334,44 @@ function readFile(file) {
     reader.readAsText(file);
 }
 
+// Robust Custom Renderer for Anchor Links
+// Robust Custom Renderer for Anchor Links (Handles different marked.js versions)
+const renderer = {
+    heading(text, level, raw) {
+        // Compatibility check: newer marked versions might pass an object as first arg
+        if (typeof text === 'object' && text !== null) {
+            raw = text.raw || raw;
+            level = text.depth || text.level || level;
+            text = text.text || '';
+        }
+
+        // Use 'raw' content if available for cleaner IDs, else text
+        const source = raw || String(text);
+
+        const id = source
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+        return `<h${level} id="${id}">${text}</h${level}>`;
+    }
+};
+
+marked.use({ renderer });
+
 function renderMarkdown(markdown, filename) {
     // Sanitize and Parse (Allow IDs for anchor links)
-    const html = DOMPurify.sanitize(marked.parse(markdown), { ADD_ATTR: ['id'] });
+    const rawHtml = marked.parse(markdown);
+
+    // Configure DOMPurify to explicitly allow 'id' attributes on headings
+    const html = DOMPurify.sanitize(rawHtml, {
+        ADD_ATTR: ['id', 'name'], // 'name' sometimes used for anchors too
+        ADD_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] // Ensure headers aren't stripped (redundant but safe)
+    });
+
+    // Update UI
 
     // Update UI
     markdownContent.innerHTML = html;
@@ -349,6 +384,29 @@ function renderMarkdown(markdown, filename) {
 
     // Scroll to Top on new file load
     window.scrollTo(0, 0);
+
+    // --- Force Anchor Link Navigation ---
+    // This ensures internal links work even if browser default behavior fails
+    setTimeout(() => {
+        const links = markdownContent.querySelectorAll('a[href^="#"]');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetId = link.getAttribute('href').substring(1); // remove '#'
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // Optional: Update URL hash without scrolling again
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+    }, 100); // Small delay to ensure DOM is ready
 }
 
 // --- Scroll to Top Logic ---
