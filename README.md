@@ -49,6 +49,10 @@ export default App;
 
 > **Note**: The `Scripto` component is designed to take up the full height of its container. Ensure the parent container has a defined height (e.g., `100vh`).
 
+### 💡 More Examples
+
+Check out [examples/Usage.tsx](https://github.com/shijoshaji/Scripto/blob/main/examples/Usage.tsx) for a complete example of how to use Scripto in a modal/overlay.
+
 ## 🛠️ Props
 
 | Prop | Type | Description |
