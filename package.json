@@ -1,0 +1,39 @@
+{
+  "name": "react-scripto",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A beautiful and simple markdown viewer component for React.",
+  "main": "./dist/scripto.umd.cjs",
+  "module": "./dist/scripto.js",
+  "exports": {
+    ".": {
+      "import": "./dist/scripto.js",
+      "require": "./dist/scripto.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:demo": "vite build -c vite.demo.config.js",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "dependencies": {
+    "dompurify": "^3.0.6",
+    "marked": "^11.1.0",
+    "react-icons": "^4.12.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.0.0"
+  }
+}

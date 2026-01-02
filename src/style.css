@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+
 /* content of style.css */
 :root {
     /* Default (Dark / Cosmic) */
@@ -132,7 +134,7 @@ body {
     color: var(--text-primary);
 }
 
-.logo ion-icon {
+.logo svg {
     color: var(--accent-color);
 }
 

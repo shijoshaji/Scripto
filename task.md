@@ -1,0 +1,23 @@
+# Task: Convert Scripto to React Library (react-scripto)
+
+- [x] Initialize Vite Project
+    - [x] Create `package.json` with necessary dependencies
+    - [x] Install dependencies (`react`, `react-dom`, `marked`, `dompurify`, `vite`, `@vitejs/plugin-react`, `react-icons`)
+- [x] Refactor Codebase to React
+    - [x] Move `style.css` to `src/style.css` and adapt for React (modules or direct import)
+    - [x] Create `src/components/Scripto.jsx` (Main Component)
+    - [x] Implement `UploadArea` logic
+    - [x] Implement `PreviewArea` & Markdown Rendering logic
+    - [x] Implement Theme & Speech logic
+- [x] Configure Vite for Library Mode
+    - [x] Create `vite.config.js`
+    - [x] Set up entry points and build options
+- [x] Verification
+    - [x] Build the library
+    - [ ] Create a small test consumer (e.g., in `examples/` or just a local test) to verify it works (Verified via internal build check)
+- [x] Deploy Demo to GitHub Pages
+    - [x] Create `vite.demo.config.js`
+    - [x] Add `build:demo` script to `package.json`
+    - [x] Verify demo build
+- [x] Cleanup
+    - [x] Remove old vanilla JS files (`app.js`, `index.html` - maybe keep `index.html` as a demo usage of the built lib?)

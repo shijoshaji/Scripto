@@ -2,112 +2,16 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
-    <title>Scriptō</title>
-    <meta name="description" content="A beautiful and simple markdown viewer for your local files.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
-
-    <!-- Icons -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scriptō</title>
+  <meta name="description" content="A beautiful and simple markdown viewer for your local files.">
 </head>
 
 <body>
-
-    <div class="background-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
-
-    <button id="theme-toggle" aria-label="Toggle Theme">
-        <ion-icon name="moon-outline"></ion-icon>
-    </button>
-
-    <main class="app-container">
-
-        <!-- Header -->
-        <header class="glass-header">
-            <div class="logo">
-                <ion-icon name="document-text-outline"></ion-icon>
-                <h1>Scr!p<span>tō</span></h1>
-            </div>
-            <!-- <p>Simple, elegant markdown visualization.</p> -->
-            <p>“Simple, elegant visualization — where every mark becomes meaning.”</p>
-        </header>
-
-        <!-- Upload Section -->
-        <section id="upload-area" class="upload-zone">
-            <input type="file" id="file-input" accept=".md,.markdown" hidden>
-            <div class="upload-content">
-                <div class="icon-wrapper">
-                    <ion-icon name="cloud-upload-outline"></ion-icon>
-                </div>
-                <h2>Drop your Markdown file here</h2>
-                <p>or <span class="browse-btn">browse files</span></p>
-
-                <div class="divider"><span>OR</span></div>
-
-                <div class="url-input-container">
-                    <input type="url" id="url-input" placeholder="Paste a raw Markdown URL..." spellcheck="false">
-                    <button id="url-btn">Go</button>
-                </div>
-
-                <p class="sub-text">Supports <span style="color: aqua;">.md</span> and <span
-                        style="color: aqua;">.markdown</span></p>
-            </div>
-        </section>
-
-        <!-- Preview Section (Hidden by default) -->
-        <section id="preview-area" class="preview-zone hidden">
-            <div class="preview-header">
-                <span id="filename-display">filename.md</span>
-                <div class="header-actions">
-                    <button id="speak-btn" class="icon-btn" title="Read Aloud">
-                        <ion-icon name="volume-high-outline"></ion-icon>
-                    </button>
-                    <button id="copy-btn" class="icon-btn" title="Copy to Clipboard">
-                        <ion-icon name="copy-outline"></ion-icon>
-                    </button>
-                    <button id="pdf-btn" class="icon-btn" title="Save as PDF">
-                        <ion-icon name="download-outline"></ion-icon>
-                    </button>
-                    <button id="close-btn" class="icon-btn" title="Close File">
-                        <ion-icon name="close-outline"></ion-icon>
-                    </button>
-                </div>
-            </div>
-            <div id="markdown-content" class="markdown-body"></div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-            <p>🎯 App created by <a href="https://bio.link/shijoshaji" target="_blank" rel="noopener noreferrer">Shijo
-                    Shaji</a></p>
-        </footer>
-
-    </main>
-
-    <!-- Scroll to Top Button (Moved outside main) -->
-    <button id="scroll-top-btn" aria-label="Scroll to Top">
-        <ion-icon name="arrow-up-outline"></ion-icon>
-    </button>
-
-    <script src="app.js"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 
 </html>
