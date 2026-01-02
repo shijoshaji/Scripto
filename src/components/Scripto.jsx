@@ -18,14 +18,13 @@ const Scripto = () => {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
         setTheme(initialTheme);
-        document.documentElement.setAttribute('data-theme', initialTheme);
+        // Removed global document 'data-theme' setting for library safety
     }, []);
 
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
     };
 
     // Scroll to Top Logic
@@ -65,7 +64,7 @@ const Scripto = () => {
     }, []);
 
     return (
-        <>
+        <div className="scripto-wrapper" data-theme={theme}>
             <div className="background-blobs">
                 <div className="blob blob-1"></div>
                 <div className="blob blob-2"></div>
@@ -112,7 +111,7 @@ const Scripto = () => {
             >
                 <IoArrowUpOutline />
             </button>
-        </>
+        </div>
     );
 };
 

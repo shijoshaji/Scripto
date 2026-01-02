@@ -20,5 +20,10 @@
     - [x] Add `build:demo` script to `package.json`
     - [x] Reconfigure for `docs/` output and add `.nojekyll`
     - [x] Verify demo build
+- [x] Prepare for NPM Publication
+    - [x] Update `package.json` metadata (name, author, keywords)
+    - [x] Add "Scriptō" keywods
+- [x] Final Polish
+    - [x] Scope CSS styles to avoid polluting consumer apps
 - [x] Cleanup
     - [x] Remove old vanilla JS files (`app.js`, `index.html` - maybe keep `index.html` as a demo usage of the built lib?)

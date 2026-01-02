@@ -32,18 +32,58 @@ I have configured the build to output to the `docs/` folder, which is the standa
 
     > **Note**: I have set the base path to `/Scripto/` in `vite.demo.config.js`. If your repo name is different, update the `base` property in that file.
 
-## Usage (Library)
-To use the library in another React project:
+## How to Use This Package
+
+### Option 1: Local Testing (Recommended)
+You can test the package in another local project without publishing it to NPM yet.
+
+1.  **Pack the library**:
+    Inside the `Scripto` folder, run:
+    ```bash
+    npm pack
+    ```
+    This will generate a file like `shijoshaji-scripto-0.0.1.tgz`.
+
+2.  **Install in another project**:
+    Go to your other React app (e.g., `my-app`) and run:
+    ```bash
+    npm install /path/to/Scripto/shijoshaji-scripto-0.0.1.tgz
+    ```
+
+### Option 2: Publish to NPM
+If you want to share it with the world:
+
+1.  **Login to NPM**:
+    ```bash
+    npm login
+    ```
+2.  **Publish**:
+    ```bash
+    npm publish --access public
+    ```
+    *(Note: Scoped packages like @shijoshaji/scripto define their own namespace, so you don't need to worry about name collisions!)*
+
+### Option 3: Install from GitHub
+You can also let users install directly from your GitHub repository:
 ```bash
-npm install react-scripto
+npm install github:shijoshaji/Scripto
 ```
-(Once published or linked locally)
+
+### Implementation Example
+In your consumer app (e.g., `App.jsx`):
 
 ```jsx
-import { Scripto } from 'react-scripto';
-import 'react-scripto/dist/style.css'; // If not automatically injected
+import React from 'react';
+import { Scripto } from '@shijoshaji/scripto';
+import '@shijoshaji/scripto/dist/style.css'; // Import the styles!
 
 function App() {
-  return <Scripto />;
+  return (
+    <div style={{ height: '100vh' }}>
+      <Scripto />
+    </div>
+  );
 }
+
+export default App;
 ```

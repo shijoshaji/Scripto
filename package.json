@@ -1,9 +1,26 @@
 {
-  "name": "react-scripto",
+  "name": "@shijoshaji/scripto",
   "private": false,
   "version": "0.0.1",
   "type": "module",
-  "description": "A beautiful and simple markdown viewer component for React.",
+  "description": "Scriptō: A beautiful and simple markdown viewer component for React.",
+  "keywords": [
+    "scripto",
+    "scriptō",
+    "markdown",
+    "viewer",
+    "react",
+    "preview"
+  ],
+  "author": "Shijo Shaji (https://shijoshaji.in)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shijoshaji/Scripto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shijoshaji/Scripto/issues"
+  },
+  "homepage": "https://shijoshaji.github.io/Scripto/",
   "main": "./dist/scripto.umd.cjs",
   "module": "./dist/scripto.js",
   "exports": {

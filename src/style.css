@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
 
-/* content of style.css */
-:root {
-    /* Default (Dark / Cosmic) */
+/* Scope everything to .scripto-wrapper */
+
+.scripto-wrapper {
+    /* Variables moved from :root */
     --bg-color: #0f172a;
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
@@ -14,55 +15,60 @@
     --blob-2: #ec4899;
     --blob-3: #10b981;
     --code-bg: rgba(0, 0, 0, 0.3);
+
+    /* Base Styles (formerly body) */
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    /* Keep 100vh for viewer, user can override if needed */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    overflow-x: hidden;
+    position: relative;
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.5;
 }
 
-[data-theme="light"] {
+/* Light Theme Override */
+.scripto-wrapper[data-theme="light"] {
     --bg-color: #f8fafc;
     --text-primary: #0f172a;
     --text-secondary: #475569;
     --accent-color: #0284c7;
-    /* Darker blue for contrast */
     --accent-hover: #0369a1;
     --glass-bg: rgba(255, 255, 255, 0.6);
     --glass-border: rgba(0, 0, 0, 0.1);
     --blob-1: #a5b4fc;
-    /* Softer pastels */
     --blob-2: #fbcfe8;
     --blob-3: #6ee7b7;
     --code-bg: rgba(0, 0, 0, 0.05);
 }
 
-* {
+/* Reset for children */
+.scripto-wrapper * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-    overflow-x: hidden;
-    position: relative;
-}
-
 /* Background Animations */
-.background-blobs {
-    position: fixed;
+.scripto-wrapper .background-blobs {
+    position: absolute;
+    /* Changed from fixed to absolute to stay within wrapper if relative */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
+    /* Changed from -1 to 0 (wrapper starts at stacking context) */
     overflow: hidden;
     pointer-events: none;
 }
 
-.blob {
+.scripto-wrapper .blob {
     position: absolute;
     filter: blur(80px);
     opacity: 0.4;
@@ -70,7 +76,7 @@ body {
     animation: move 20s infinite alternate;
 }
 
-.blob-1 {
+.scripto-wrapper .blob-1 {
     top: -10%;
     left: -10%;
     width: 50vw;
@@ -78,7 +84,7 @@ body {
     background: var(--blob-1);
 }
 
-.blob-2 {
+.scripto-wrapper .blob-2 {
     bottom: -10%;
     right: -10%;
     width: 40vw;
@@ -87,7 +93,7 @@ body {
     animation-delay: -5s;
 }
 
-.blob-3 {
+.scripto-wrapper .blob-3 {
     bottom: 20%;
     left: 20%;
     width: 30vw;
@@ -107,7 +113,7 @@ body {
 }
 
 /* Application Container */
-.app-container {
+.scripto-wrapper .app-container {
     width: 100%;
     max-width: 900px;
     z-index: 10;
@@ -118,13 +124,13 @@ body {
 }
 
 /* Header */
-.glass-header {
+.scripto-wrapper .glass-header {
     text-align: center;
     margin-bottom: 1rem;
     animation: fadeInDown 0.8s ease-out;
 }
 
-.logo {
+.scripto-wrapper .logo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,21 +140,21 @@ body {
     color: var(--text-primary);
 }
 
-.logo svg {
+.scripto-wrapper .logo svg {
     color: var(--accent-color);
 }
 
-.logo h1 span {
+.scripto-wrapper .logo h1 span {
     color: var(--accent-color);
     font-weight: 300;
 }
 
-.glass-header p {
+.scripto-wrapper .glass-header p {
     color: var(--text-secondary);
 }
 
 /* Upload Zone */
-.upload-zone {
+.scripto-wrapper .upload-zone {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
@@ -163,36 +169,35 @@ body {
     animation: fadeInUp 0.8s ease-out 0.2s backwards;
 }
 
-.upload-zone:hover,
-.upload-zone.drag-active {
+.scripto-wrapper .upload-zone:hover,
+.scripto-wrapper .upload-zone.drag-active {
     transform: translateY(-5px);
     border-color: var(--accent-color);
     box-shadow: 0 10px 40px rgba(56, 189, 248, 0.2);
 }
 
-.upload-zone.drag-active {
+.scripto-wrapper .upload-zone.drag-active {
     background: rgba(56, 189, 248, 0.1);
 }
 
-.icon-wrapper {
+.scripto-wrapper .icon-wrapper {
     font-size: 3.5rem;
-    /* Slightly smaller to fit everything */
     color: var(--text-secondary);
     margin-bottom: 1rem;
     transition: color 0.3s ease;
 }
 
-.upload-zone:hover .icon-wrapper {
+.scripto-wrapper .upload-zone:hover .icon-wrapper {
     color: var(--accent-color);
 }
 
-.upload-zone h2 {
+.scripto-wrapper .upload-zone h2 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
 }
 
-.browse-btn {
+.scripto-wrapper .browse-btn {
     color: var(--accent-color);
     text-decoration: underline;
     cursor: pointer;
@@ -200,7 +205,7 @@ body {
 }
 
 /* Divider */
-.divider {
+.scripto-wrapper .divider {
     margin: 1.5rem 0;
     position: relative;
     display: flex;
@@ -208,15 +213,15 @@ body {
     justify-content: center;
 }
 
-.divider::before,
-.divider::after {
+.scripto-wrapper .divider::before,
+.scripto-wrapper .divider::after {
     content: '';
     flex: 1;
     height: 1px;
     background: var(--glass-border);
 }
 
-.divider span {
+.scripto-wrapper .divider span {
     padding: 0 1rem;
     color: var(--text-secondary);
     font-size: 0.8rem;
@@ -225,14 +230,14 @@ body {
 }
 
 /* URL Input */
-.url-input-container {
+.scripto-wrapper .url-input-container {
     display: flex;
     gap: 0.5rem;
     max-width: 400px;
     margin: 0 auto 1rem auto;
 }
 
-#url-input {
+.scripto-wrapper #url-input {
     flex: 1;
     background: rgba(15, 23, 42, 0.6);
     border: 1px solid var(--glass-border);
@@ -243,12 +248,12 @@ body {
     transition: all 0.3s ease;
 }
 
-#url-input:focus {
+.scripto-wrapper #url-input:focus {
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
 }
 
-#url-btn {
+.scripto-wrapper #url-btn {
     background: var(--accent-color);
     color: #fff;
     border: none;
@@ -259,19 +264,19 @@ body {
     transition: all 0.2s;
 }
 
-#url-btn:hover {
+.scripto-wrapper #url-btn:hover {
     background: var(--accent-hover);
     transform: translateY(-1px);
 }
 
-.sub-text {
+.scripto-wrapper .sub-text {
     margin-top: 1rem;
     font-size: 0.9rem;
     color: var(--text-secondary);
 }
 
 /* Preview Zone */
-.preview-zone {
+.scripto-wrapper .preview-zone {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
@@ -284,11 +289,11 @@ body {
     min-height: 600px;
 }
 
-.preview-zone.hidden {
+.scripto-wrapper .preview-zone.hidden {
     display: none;
 }
 
-.preview-header {
+.scripto-wrapper .preview-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -297,12 +302,12 @@ body {
     margin-bottom: 2rem;
 }
 
-.header-actions {
+.scripto-wrapper .header-actions {
     display: flex;
     gap: 0.5rem;
 }
 
-#filename-display {
+.scripto-wrapper #filename-display {
     font-family: monospace;
     background: var(--code-bg);
     padding: 0.3rem 0.8rem;
@@ -310,7 +315,7 @@ body {
     color: var(--accent-color);
 }
 
-.icon-btn {
+.scripto-wrapper .icon-btn {
     background: transparent;
     border: none;
     color: var(--text-secondary);
@@ -324,18 +329,17 @@ body {
     justify-content: center;
 }
 
-.icon-btn:hover {
+.scripto-wrapper .icon-btn:hover {
     background: var(--glass-border);
     color: var(--accent-hover);
 }
 
-#close-btn:hover {
+.scripto-wrapper #close-btn:hover {
     color: #ef4444;
-    /* Keep red for close only */
 }
 
 /* Active speaking state */
-#speak-btn.speaking {
+.scripto-wrapper #speak-btn.speaking {
     color: var(--accent-color);
     animation: pulse 1.5s infinite;
 }
@@ -358,48 +362,46 @@ body {
 }
 
 /* Markdown Content Styling */
-.markdown-body {
+.scripto-wrapper .markdown-body {
     color: var(--text-primary);
     line-height: 1.7;
     font-size: 1.05rem;
 }
 
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3 {
-    margin-top: 1.5rem;
+.scripto-wrapper .markdown-body h1,
+.scripto-wrapper .markdown-body h2,
+.scripto-wrapper .markdown-body h3 {
     margin-top: 1.5rem;
     margin-bottom: 1rem;
     color: var(--text-primary);
     font-weight: 600;
     scroll-margin-top: 100px;
-    /* offset for fixed header */
 }
 
-.markdown-body h1 {
+.scripto-wrapper .markdown-body h1 {
     font-size: 2.25rem;
     border-bottom: 1px solid var(--glass-border);
     padding-bottom: 0.5rem;
 }
 
-.markdown-body h2 {
+.scripto-wrapper .markdown-body h2 {
     font-size: 1.75rem;
 }
 
-.markdown-body p {
+.scripto-wrapper .markdown-body p {
     margin-bottom: 1rem;
 }
 
-.markdown-body a {
+.scripto-wrapper .markdown-body a {
     color: var(--accent-color);
     text-decoration: none;
 }
 
-.markdown-body a:hover {
+.scripto-wrapper .markdown-body a:hover {
     text-decoration: underline;
 }
 
-.markdown-body code {
+.scripto-wrapper .markdown-body code {
     background: var(--code-bg);
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
@@ -407,7 +409,7 @@ body {
     color: var(--accent-color);
 }
 
-.markdown-body pre {
+.scripto-wrapper .markdown-body pre {
     background: var(--code-bg);
     padding: 1rem;
     border-radius: 12px;
@@ -416,14 +418,14 @@ body {
     border: 1px solid var(--glass-border);
 }
 
-.markdown-body pre code {
+.scripto-wrapper .markdown-body pre code {
     background: transparent;
     padding: 0;
     color: var(--text-primary);
 }
 
 /* Theme Toggle */
-#theme-toggle {
+.scripto-wrapper #theme-toggle {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     color: var(--text-primary);
@@ -443,14 +445,14 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-#theme-toggle:hover {
+.scripto-wrapper #theme-toggle:hover {
     background: var(--glass-border);
     transform: scale(1.1) rotate(15deg);
     color: var(--accent-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.markdown-body blockquote {
+.scripto-wrapper .markdown-body blockquote {
     border-left: 4px solid var(--accent-color);
     padding-left: 1rem;
     margin-left: 0;
@@ -458,68 +460,60 @@ body {
     font-style: italic;
 }
 
-.markdown-body ul,
-.markdown-body ol {
+.scripto-wrapper .markdown-body ul,
+.scripto-wrapper .markdown-body ol {
     margin-left: 1.5rem;
     margin-bottom: 1rem;
 }
 
-.markdown-body img {
+.scripto-wrapper .markdown-body img {
     max-width: 100%;
     border-radius: 12px;
     margin: 1rem 0;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Table Styling - VS Code / Horizontal Style */
-.markdown-body table {
+/* Table Styling */
+.scripto-wrapper .markdown-body table {
     width: 100%;
     border-collapse: collapse;
     margin: 1.5rem 0;
-    /* Classic Bordered Style */
     border: 1px solid var(--glass-border);
 }
 
-.markdown-body thead {
+.scripto-wrapper .markdown-body thead {
     background: rgba(255, 255, 255, 0.05);
-    /* Subtle header bg */
     border-bottom: 2px solid var(--glass-border);
 }
 
-.markdown-body th,
-.markdown-body td {
+.scripto-wrapper .markdown-body th,
+.scripto-wrapper .markdown-body td {
     padding: 0.75rem 1rem;
     text-align: left;
     border: 1px solid var(--glass-border);
 }
 
-.markdown-body th {
+.scripto-wrapper .markdown-body th {
     font-weight: 600;
     color: var(--text-primary);
-    /* Keep it bright/visible */
     font-size: 1rem;
     padding-bottom: 0.5rem;
 }
 
-.markdown-body tbody tr:last-child td {
+.scripto-wrapper .markdown-body tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Subtle hover effect */
-.markdown-body tbody tr:hover {
+.scripto-wrapper .markdown-body tbody tr:hover {
     background: rgba(255, 255, 255, 0.02);
 }
 
-/* Align checkbox/status columns if detected (centering last column common pattern) */
-.markdown-body td:last-child,
-.markdown-body th:last-child {
+.scripto-wrapper .markdown-body td:last-child,
+.scripto-wrapper .markdown-body th:last-child {
     text-align: left;
-    /* Keep left as per screenshot, or center if preferred */
 }
 
-/* Optional: Monospace for package names if desired, but user screenshot didn't show it strongly. */
-
-.markdown-body hr {
+.scripto-wrapper .markdown-body hr {
     border: 0;
     height: 1px;
     background: var(--glass-border);
@@ -553,21 +547,21 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .app-container {
+    .scripto-wrapper .app-container {
         padding: 1rem;
     }
 
-    .upload-zone {
+    .scripto-wrapper .upload-zone {
         padding: 3rem 1rem;
     }
 
-    .markdown-body h1 {
+    .scripto-wrapper .markdown-body h1 {
         font-size: 1.75rem;
     }
 }
 
 /* Footer */
-.app-footer {
+.scripto-wrapper .app-footer {
     text-align: center;
     margin-top: 2rem;
     padding-bottom: 1rem;
@@ -576,20 +570,20 @@ body {
     animation: fadeInUp 0.8s ease-out 0.4s backwards;
 }
 
-.app-footer a {
+.scripto-wrapper .app-footer a {
     color: var(--accent-color);
     text-decoration: none;
     font-weight: 600;
     transition: all 0.2s;
 }
 
-.app-footer a:hover {
+.scripto-wrapper .app-footer a:hover {
     color: var(--accent-hover);
     text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
 }
 
 /* Scroll to Top Button */
-#scroll-top-btn {
+.scripto-wrapper #scroll-top-btn {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
@@ -612,39 +606,41 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#scroll-top-btn.visible {
+.scripto-wrapper #scroll-top-btn.visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-#scroll-top-btn:hover {
+.scripto-wrapper #scroll-top-btn:hover {
     background: var(--accent-hover);
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
 }
 
-/* Print Styles for PDF Export */
+/* Print Styles */
 @media print {
-    body {
+    .scripto-wrapper {
         background-color: var(--bg-color) !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
         padding: 0;
         margin: 0;
         overflow: visible;
+        display: block;
+        /* Override flex */
     }
 
-    .background-blobs,
-    #theme-toggle,
-    .glass-header,
-    .upload-zone,
-    .app-footer,
-    .header-actions {
+    .scripto-wrapper .background-blobs,
+    .scripto-wrapper #theme-toggle,
+    .scripto-wrapper .glass-header,
+    .scripto-wrapper .upload-zone,
+    .scripto-wrapper .app-footer,
+    .scripto-wrapper .header-actions {
         display: none !important;
     }
 
-    .app-container {
+    .scripto-wrapper .app-container {
         max-width: 100%;
         width: 100%;
         margin: 0;
@@ -653,35 +649,26 @@ body {
         perspective: none;
     }
 
-    .preview-zone {
+    .scripto-wrapper .preview-zone {
         background: transparent;
         backdrop-filter: none;
         border: none;
         box-shadow: none;
         padding: 2rem;
-        /* Keep some padding for readability */
         min-height: auto;
         animation: none;
     }
 
-    .preview-header {
+    .scripto-wrapper .preview-header {
         border-bottom: 2px solid var(--accent-color);
         margin-bottom: 2rem;
         justify-content: center;
-        /* Center filename if shown */
     }
 
-    #filename-display {
+    .scripto-wrapper #filename-display {
         font-size: 1.5rem;
         border: 1px solid var(--glass-border);
         background: transparent;
         color: var(--text-primary);
-    }
-
-    /* Ensure code blocks print nicely */
-    .markdown-body pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        border: 1px solid #ccc;
     }
 }

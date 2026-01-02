@@ -1,0 +1,17 @@
+/* Global styles for the DEMO app only. 
+   These are NOT included in the NPM library. */
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0f172a;
+    /* Default dark background to match app */
+}
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
