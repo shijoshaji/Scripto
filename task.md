@@ -25,5 +25,7 @@
     - [x] Add "Scriptō" keywods
 - [x] Final Polish
     - [x] Scope CSS styles to avoid polluting consumer apps
+    - [x] Separate Demo styles
+    - [ ] Fix background scroll behavior (Inner Scroll)
 - [x] Cleanup
     - [x] Remove old vanilla JS files (`app.js`, `index.html` - maybe keep `index.html` as a demo usage of the built lib?)

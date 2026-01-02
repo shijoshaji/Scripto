@@ -11,6 +11,7 @@ const Scripto = () => {
     const [theme, setTheme] = useState('light'); // Default to light or check system
     const [fileData, setFileData] = useState(null); // { name, content }
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const scrollContainerRef = React.useRef(null);
 
     // Initial Theme Logic
     useEffect(() => {
@@ -29,24 +30,31 @@ const Scripto = () => {
 
     // Scroll to Top Logic
     useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
         const handleScroll = () => {
-            if (window.scrollY > 300) {
+            if (container.scrollTop > 300) {
                 setShowScrollTop(true);
             } else {
                 setShowScrollTop(false);
             }
         };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        container.addEventListener('scroll', handleScroll);
+        return () => container.removeEventListener('scroll', handleScroll);
     }, []);
 
     const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     const handleFileLoaded = (data) => {
         setFileData(data);
-        window.scrollTo(0, 0);
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = 0;
+        }
     };
 
     const handleClose = () => {
@@ -75,7 +83,7 @@ const Scripto = () => {
                 {theme === 'light' ? <IoSunnyOutline /> : <IoMoonOutline />}
             </button>
 
-            <main className="app-container">
+            <main className="app-container" ref={scrollContainerRef}>
                 {/* Header */}
                 <header className="glass-header">
                     <div className="logo">

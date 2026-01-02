@@ -19,16 +19,16 @@
     /* Base Styles (formerly body) */
     background-color: var(--bg-color);
     color: var(--text-primary);
-    min-height: 100vh;
-    /* Keep 100vh for viewer, user can override if needed */
+
+    /* Inner Scroll Layout Changes */
+    height: 100vh;
+    /* Fixed to viewport */
     width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-    overflow-x: hidden;
     position: relative;
     font-family: 'Outfit', sans-serif;
     line-height: 1.5;
+    overflow: hidden;
+    /* Jail the content, no body scroll */
 }
 
 /* Light Theme Override */
@@ -57,13 +57,11 @@
 /* Background Animations */
 .scripto-wrapper .background-blobs {
     position: absolute;
-    /* Changed from fixed to absolute to stay within wrapper if relative */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-    /* Changed from -1 to 0 (wrapper starts at stacking context) */
     overflow: hidden;
     pointer-events: none;
 }
@@ -112,15 +110,28 @@
     }
 }
 
-/* Application Container */
+/* Application Container - The Scrollable Zone */
 .scripto-wrapper .app-container {
     width: 100%;
-    max-width: 900px;
+    height: 100%;
+    overflow-y: auto;
+    /* Scroll bar lives here now */
+    padding: 2rem;
+    /* Move padding inside */
     z-index: 10;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    align-items: center;
+    /* Horizontally center the constrained children */
     perspective: 1000px;
+}
+
+/* Constrain content width manually since container is full width */
+.scripto-wrapper .app-container>* {
+    width: 100%;
+    max-width: 900px;
+    flex-shrink: 0;
 }
 
 /* Header */
