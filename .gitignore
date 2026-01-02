@@ -121,7 +121,7 @@ dist-ssr
 *.local
 
 # Demo Build for githuppages
-# dist-demo
+dist-demo
 
 # OS junk
 .DS_Store

@@ -13,20 +13,22 @@ I have successfully converted the vanilla JavaScript Scripto application into a 
 - **Build**: Configured `vite.config.js` to output a library bundle (`dist/scripto.js` and `dist/scripto.umd.cjs`).
 
 ## GitHub Pages Deployment
-To deploy a demo version of Scripto to GitHub Pages:
+I have configured the build to output to the `docs/` folder, which is the standard way to deploy from the main branch on GitHub Pages. I also added a `.nojekyll` file to prevent build errors.
 
 1.  **Build the Demo**:
     ```bash
     npm run build:demo
     ```
-    This creates a `dist-demo` folder with the website assets.
+    This creates a `docs` folder with the website assets.
 
-2.  **Deploy**:
-    - **Option A (Manual)**: Upload the contents of `dist-demo` to your GitHub repository's `gh-pages` branch (or configure Pages to serve from `/docs` if you move the files there).
-    - **Option B (gh-pages package)**:
-        1. Install: `npm install gh-pages --save-dev`
-        2. Add script to `package.json`: `"deploy": "gh-pages -d dist-demo"`
-        3. Run: `npm run deploy`
+2.  **Push to GitHub**:
+    Commit and push the `docs/` folder to your main branch.
+
+3.  **Configure GitHub Pages**:
+    - Go to your repository **Settings** > **Pages**.
+    - Under **Build and deployment** -> **Source**, select **Deploy from a branch**.
+    - For **Branch**, select `main` (or `master`) and folder `/docs`.
+    - Click **Save**.
 
     > **Note**: I have set the base path to `/Scripto/` in `vite.demo.config.js`. If your repo name is different, update the `base` property in that file.
 

@@ -18,6 +18,7 @@
 - [x] Deploy Demo to GitHub Pages
     - [x] Create `vite.demo.config.js`
     - [x] Add `build:demo` script to `package.json`
+    - [x] Reconfigure for `docs/` output and add `.nojekyll`
     - [x] Verify demo build
 - [x] Cleanup
     - [x] Remove old vanilla JS files (`app.js`, `index.html` - maybe keep `index.html` as a demo usage of the built lib?)

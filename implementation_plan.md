@@ -1,25 +1,24 @@
-# Enable GitHub Pages Deployment
-
-## Goal Description
-Configure the project to build a deployable demo version of the `react-scripto` library so it can be hosted on GitHub Pages.
+# Fix GitHub Pages Deployment
 
 ## Problem
-The current `vite.config.js` is configured for **Library Mode**. It builds a JavaScript package for NPM, not a website. It excludes `index.html` and externalizes `react`.
+The deployment failed because GitHub Pages is trying to use Jekyll to build the site, which is incompatible with our Vite build. Additionally, the error logs indicate GitHub Pages is configured to look for a `docs/` folder, but our build outputs to `dist-demo/`.
 
 ## Proposed Changes
 
-### [NEW] [vite.demo.config.js](file:///d:/Skill%20Devlopment/IT/GitHub_Public_Repo/Scripto/vite.demo.config.js)
-Create a separate Vite configuration for the demo app.
-- **Entry**: Uses `index.html` (implicit default).
-- **OutDir**: `dist-demo` (to separate from library `dist`).
-- **Base**: `/Scripto/` (Correct base path for GitHub Pages project repositories).
+### [MODIFY] [vite.demo.config.js](file:///d:/Skill%20Devlopment/IT/GitHub_Public_Repo/Scripto/vite.demo.config.js)
+- Change `outDir` from `dist-demo` to `docs`.
+- This aligns with the common "Deploy from /docs folder" setting in GitHub Pages.
+
+### [NEW] [.nojekyll](file:///d:/Skill%20Devlopment/IT/GitHub_Public_Repo/Scripto/public/.nojekyll)
+- Create an empty `.nojekyll` file in the `public` directory.
+- This file tells GitHub Pages to **skip** Jekyll processing and serve files as-is.
+- Vite will copy this file to the `docs` folder during build.
 
 ### [MODIFY] [package.json](file:///d:/Skill%20Devlopment/IT/GitHub_Public_Repo/Scripto/package.json)
-Add scripts for building and deploying the demo.
-- `build:demo`: `vite build -c vite.demo.config.js`
-- `deploy`: (Optional) `gh-pages -d dist-demo` (if user wants to use `gh-pages` package, otherwise just manual upload).
+- Update `gitignore` to allow `docs/` (if ignored) and ignore `dist-demo`.
+- Note: The user commented out `dist-demo` in gitignore already, so we just need to ensure `docs` is allowed (it usually is by default).
 
 ## Verification Plan
-1. Run `npm run build:demo`.
-2. check `dist-demo` contains `index.html` and assets.
-3. User can then deploy `dist-demo` to GitHub Pages.
+1.  Run `npm run build:demo`.
+2.  Verify `docs/` folder is created and contains `.nojekyll` and `index.html`.
+3.  User needs to push these changes to GitHub.
