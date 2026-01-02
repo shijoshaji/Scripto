@@ -7,8 +7,9 @@ import '../style.css';
 
 /**
  * Scripto Main Component
+ * Supports loading content via drag-and-drop or via 'url' prop/query param.
  */
-const Scripto = () => {
+const Scripto = ({ url: propUrl }) => {
     const [theme, setTheme] = useState('light'); // Default to light or check system
     const [fileData, setFileData] = useState(null); // { name, content }
     const [showScrollTop, setShowScrollTop] = useState(false);
@@ -27,6 +28,36 @@ const Scripto = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
+    };
+
+    // Helper: Convert GitHub blob to raw
+    const convertToRawUrl = (url) => {
+        try {
+            const urlObj = new URL(url);
+            if (urlObj.hostname === 'github.com' && url.includes('/blob/')) {
+                return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+            }
+        } catch (e) { }
+        return url;
+    };
+
+    // Helper: Fetch Markdown
+    const fetchMarkdown = async (url) => {
+        if (!url) return;
+        try {
+            const targetUrl = convertToRawUrl(url);
+            const response = await fetch(targetUrl);
+            if (!response.ok) throw new Error('Failed to fetch');
+            const text = await response.text();
+
+            let filename = url.substring(url.lastIndexOf('/') + 1) || 'remote-file.md';
+            if (filename.includes('?')) filename = filename.split('?')[0];
+
+            setFileData({ name: filename, content: text });
+        } catch (error) {
+            console.error('Scripto Load Error:', error);
+            // Optional: setFileData({ name: 'Error', content: '# Error Loading File\nCould not load file from URL.' });
+        }
     };
 
     // Scroll to Top Logic
@@ -65,12 +96,16 @@ const Scripto = () => {
         window.history.pushState({}, '', url);
     };
 
-    // Handle URL param on load
+    // Handle URL param or Prop on load
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
-        const remoteUrl = params.get('url');
+        const remoteUrl = propUrl || params.get('url');
+
+        if (remoteUrl) {
+            fetchMarkdown(remoteUrl);
+        }
         // Logic for auto-loading from URL can be added here if needed
-    }, []);
+    }, [propUrl]);
 
     return (
         <div className="scripto-wrapper" data-theme={theme}>
@@ -108,8 +143,8 @@ const Scripto = () => {
                 {/* Footer */}
                 <footer className="app-footer">
                     <p> Try it out on &nbsp;<a href="https://www.npmjs.com/package/@jojovms/scripto" target="_blank" rel="noopener noreferrer" className="npm-link" title="View on NPM">
-                            <FaNpm style={{ fontSize: '2.5em', verticalAlign: 'middle', marginRight: '5px' }} />
-                        </a>
+                        <FaNpm style={{ fontSize: '2.5em', verticalAlign: 'middle', marginRight: '5px' }} />
+                    </a>
                         <span style={{ margin: '0 10px', opacity: 0.5 }}>|</span>
                         🎯 App created by <a href="https://bio.link/shijoshaji" target="_blank" rel="noopener noreferrer">Shijo Shaji</a>
                     </p>

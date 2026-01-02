@@ -1,58 +1,62 @@
-# Scriptō - Elegant Markdown Viewer
+# Scriptō - React Markdown Viewer
 
-[**🚀 Live Demo**](https://shijoshaji.github.io/Scripto/)
+[**🚀 Live Demo**](https://shijoshaji.github.io/Scripto/) | [**📦 NPM Package**](https://www.npmjs.com/package/@jojovms/scripto)
 
-**Scriptō** is a beautiful, lightweight, and offline-capable Markdown viewer designed for simplicity and elegance. It runs entirely in your browser with no backend required.
+**Scriptō** is a beautiful, lightweight, and simple Markdown viewer component for React.
 
 > "Simple, elegant visualization — where every mark becomes meaning."
 
 ## ✨ Features
 
-### 📂 **Instant Preview**
-- **Drag & Drop**: Simply drop any `.md` or `.markdown` file to view it instantly.
-- **File Picker**: Browse files from your local system.
+- **Beautiful UI**: Modern, glassmorphism design with vibrant background animations.
+- **Instant Preview**: Drag & drop or paste URLs to view `.md` files instantly.
+- **Rich Text Copy**: Copy Markdown as formatted HTML to paste directly into emails/docs.
+- **Accessibility**: Integrated Text-to-Speech (Read Aloud).
+- **Export**: Save documents as clean PDF files.
+- **Theming**: Built-in Dark and Light modes.
 
-### 🔗 **Remote Fetching**
-- **URL Support**: Load Markdown files directly from the web.
-- **Smart GitHub Support**: Automatically converts standard GitHub file URLs (blob) to raw format for seamless viewing.
-- **Query Params**: Share links easily using `?url=YOUR_LINK` (e.g., `index.html?url=https://raw.github...`).
+## 📦 Installation
 
-### 🎨 **Visual Experience**
-- **Glassmorphism Design**: Modern, translucent UI with vibrant background animations.
-- **Theme Toggle**: Switch between the default **Cosmic Dark** mode and a clean **Pastel Light** mode.
-- **Responsive**: Perfectly optimized for desktops, tablets, and mobile devices.
+```bash
+npm install @jojovms/scripto
+```
 
-### 🔊 **Accessibility**
-- **Read Aloud**: Integrated Text-to-Speech engine reads your document out loud.
-- **Visual Feedback**: Pulse animation indicates when audio is playing.
+## 🚀 Usage
 
-### 📤 **Export & Share**
-- **Rich Text Copy**: Copy your Markdown as formatted Rich Text (HTML) to paste directly into Word, Docs, or emails with styles preserved.
-- **Save as PDF**: Export your document as a clean, styled PDF. (Optimized for both Light and Dark modes).
+Import the component and the styles in your React application:
 
-## 🚀 How to Use
+```jsx
+import React from 'react';
+import { Scripto } from '@jojovms/scripto';
+import '@jojovms/scripto/dist/style.css'; // Don't forget the styles!
 
-### Local Usage
-1.  Download the repository.
-2.  Double-click `index.html` to open it in your browser.
-3.  **Note**: Some browsers might restrict URL fetching (CORS) when running from `file://`. For full features, run a simple local server:
-    ```bash
-    # Python 3
-    python -m http.server 8000
-    ```
+function App() {
+  return (
+    <div style={{ height: '100vh', width: '100%' }}>
+      {/* Basic Usage */}
+      <Scripto />
 
-### Hosting (GitHub Pages)
-This app is "Static-Ready". You can deploy it directly to GitHub Pages, Vercel, or Netlify with zero configuration.
+      {/* Or load a file from a URL */}
+      <Scripto url={`${window.location.origin}/docs/walkthrough.md`} />
+      or
+      <Scripto url="https://raw.githubusercontent.com/jojovms/scripto/main/README.md" />
+    </div>
+  );
+}
 
-## 🛠️ Tech Stack
-- **Core**: HTML5, Vanilla CSS3, Vanilla JavaScript (ES6+).
-- **Libraries** (via CDN):
-    - [Marked.js](https://marked.js.org/) (Markdown Parser)
-    - [DOMPurify](https://github.com/cure53/DOMPurify) (Security/Sanitization)
-    - [Ionicons](https://ionic.io/ionicons) (Icons)
-- **Fonts**: [Outfit](https://fonts.google.com/specimen/Outfit) (Google Fonts).
+export default App;
+```
+
+> **Note**: The `Scripto` component is designed to take up the full height of its container. Ensure the parent container has a defined height (e.g., `100vh`).
+
+## 🛠️ Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `url` | `string` | Optional. A direct URL to a Markdown file to load on mount. Supports raw URLs or GitHub blob URLs. |
 
 ## 👨‍💻 Credits
+
 Created by [Shijo Shaji](https://bio.link/shijoshaji).
 
 ---
