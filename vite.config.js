@@ -7,8 +7,8 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, 'src/index.js'),
-            name: 'ReactScripto',
-            fileName: 'scripto',
+            name: 'Scripto',
+            fileName: (format) => `scripto.${format}.js`,
         },
         rollupOptions: {
             external: ['react', 'react-dom'],

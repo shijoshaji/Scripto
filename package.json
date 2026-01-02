@@ -21,12 +21,12 @@
     "url": "https://github.com/shijoshaji/Scripto/issues"
   },
   "homepage": "https://shijoshaji.github.io/Scripto/",
-  "main": "./dist/scripto.umd.cjs",
-  "module": "./dist/scripto.js",
+  "main": "./dist/scripto.umd.js",
+  "module": "./dist/scripto.es.js",
   "exports": {
     ".": {
-      "import": "./dist/scripto.js",
-      "require": "./dist/scripto.umd.cjs"
+      "import": "./dist/scripto.es.js",
+      "require": "./dist/scripto.umd.js"
     },
     "./dist/style.css": "./dist/style.css"
   },
