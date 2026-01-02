@@ -61,7 +61,7 @@ If you want to share it with the world:
     ```bash
     npm publish --access public
     ```
-    *(Note: Scoped packages like @shijoshaji/scripto define their own namespace, so you don't need to worry about name collisions!)*
+    *(Note: Scoped packages like @jojovms/scripto define their own namespace, so you don't need to worry about name collisions!)*
 
 ### Option 3: Install from GitHub
 You can also let users install directly from your GitHub repository:
@@ -74,8 +74,8 @@ In your consumer app (e.g., `App.jsx`):
 
 ```jsx
 import React from 'react';
-import { Scripto } from '@shijoshaji/scripto';
-import '@shijoshaji/scripto/dist/style.css'; // Import the styles!
+import { Scripto } from '@jojovms/scripto';
+import '@jojovms/scripto/dist/style.css'; // Import the styles!
 
 function App() {
   return (

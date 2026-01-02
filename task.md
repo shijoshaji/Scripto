@@ -14,7 +14,7 @@
     - [x] Set up entry points and build options
 - [x] Verification
     - [x] Build the library
-    - [ ] Create a small test consumer (e.g., in `examples/` or just a local test) to verify it works (Verified via internal build check)
+    - [x] Create a small test consumer (e.g., in `examples/` or just a local test) to verify it works (Verified via internal build check)
 - [x] Deploy Demo to GitHub Pages
     - [x] Create `vite.demo.config.js`
     - [x] Add `build:demo` script to `package.json`
@@ -26,6 +26,6 @@
 - [x] Final Polish
     - [x] Scope CSS styles to avoid polluting consumer apps
     - [x] Separate Demo styles
-    - [ ] Fix background scroll behavior (Inner Scroll)
+    - [x] Fix background scroll behavior (Inner Scroll)
 - [x] Cleanup
-    - [x] Remove old vanilla JS files (`app.js`, `index.html` - maybe keep `index.html` as a demo usage of the built lib?)
+    - [x] Remove old vanilla JS files (`app.js`, `index.html - maybe keep index.html as a demo usage of the built lib?)

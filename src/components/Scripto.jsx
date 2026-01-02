@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IoMoonOutline, IoSunnyOutline, IoDocumentTextOutline, IoArrowUpOutline } from 'react-icons/io5';
+import { FaNpm } from 'react-icons/fa';
 import UploadArea from './UploadArea';
 import PreviewArea from './PreviewArea';
 import '../style.css';
@@ -106,7 +107,12 @@ const Scripto = () => {
 
                 {/* Footer */}
                 <footer className="app-footer">
-                    <p>🎯 App created by <a href="https://bio.link/shijoshaji" target="_blank" rel="noopener noreferrer">Shijo Shaji</a></p>
+                    <p> Try it out on &nbsp;<a href="https://www.npmjs.com/package/@jojovms/scripto" target="_blank" rel="noopener noreferrer" className="npm-link" title="View on NPM">
+                            <FaNpm style={{ fontSize: '2.5em', verticalAlign: 'middle', marginRight: '5px' }} />
+                        </a>
+                        <span style={{ margin: '0 10px', opacity: 0.5 }}>|</span>
+                        🎯 App created by <a href="https://bio.link/shijoshaji" target="_blank" rel="noopener noreferrer">Shijo Shaji</a>
+                    </p>
                 </footer>
             </main>
 
